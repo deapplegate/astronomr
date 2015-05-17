@@ -1,0 +1,11 @@
+Dependencies:
+Use something like pip to install the following packages:
+* flask
+* flask-sqlalchemy
+* Flask-Creole
+* flask-wtf
+
+The repo includes a test sqlite3 database. If you wish to erase and recreate the database, use the command `python init_db.py`.
+
+To start the app, use the command `python runapplication.py`. The link to the app will be printed to the terminal.
+
