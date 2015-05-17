@@ -17,8 +17,11 @@ def show_object(object_id):
     theobject = model.Object.query.get(object_id)
     if theobject is None:
         abort(404)
+
+    observations = theobject.logged_observations.order_by(model.LoggedObservation.id.desc())[:10]
     
-    return render_template('show_object.html', theobject = theobject)
+    return render_template('show_object.html', theobject = theobject,
+                           observations = observations)
 
 ###
 

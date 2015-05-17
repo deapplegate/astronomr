@@ -11,4 +11,19 @@
 
 </div>
 
+<ul class=observations>
+  {% for observation in observations %}
+  <li><h2>{{ observation.title }}</h2>
+    Date: {{ observation.timestamp }}<br>
+    Objects:
+    {% for object in observation.objects %}
+    <a href="{{ url_for('show_object', object_id = object.id) }}">{{ object.name }}</a>
+    {% endfor %}<br>
+    {{ observation.description }}
+  {% else %}
+    <li><em>No observations yet. Would you like to add one?</em>
+  {% endfor %}
+</ul>
+
+
 {% endblock %}
