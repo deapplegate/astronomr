@@ -1,33 +1,20 @@
 {% extends "layout.html" %}
 {% block body %}
+{% from "macros.html" import render_field, render_observations %}
+
 {% if session.logged_in %}
 <form action="{{ url_for('add_observation') }}" method=post class=add-observation>
+  <ul>
   {{ new_obs_form.hidden_tag() }}
-  
-  <dl>
-    <dt>{{ new_obs_form.title.label }}
-    <dd>{{ new_obs_form.title(size=80) }} {% for error in new_obs_form.title.errors %}<span style="color: red;">[{{ error }}]</span> {% endfor %}
-    <dt>{{ new_obs_form.timestamp.label }} [YYYY-MM-DD HH:MM:SS]
-    <dd>{{ new_obs_form.timestamp }} {% for error in new_obs_form.timestamp.errors %}<span style="color: red;">[{{ error }}]</span> {% endfor %}
-    <dt>{{ new_obs_form.objects.label }} [Comma separated list]
-    <dd>{{ new_obs_form.objects(size=80) }} {% for error in new_obs_form.objects.errors %}<span style="color: red;">[{{ error }}]</span> {% endfor %}
-    <dt>{{ new_obs_form.description.label }}
-    <dd>{{ new_obs_form.description(rows=5, cols=40) }} {% for error in new_obs_form.description.errors %}<span style="color: red;">[{{ error }}]</span> {% endfor %}
-    <dd><input type=submit value="Add Observation">
-  </dl>
+  <li>{{ render_field(new_obs_form.title, class="input text") }}</li>
+  <li>{{ render_field(new_obs_form.timestamp, class="input text") }}</li>
+  <li>{{ render_field(new_obs_form.objects, class="input text") }}  </li>
+  <li>{{ render_field(new_obs_form.description, class="input textarea") }} </li>
+  <input type=submit value="Add Observation">
+  </ul>
 </form>
 {% endif %}
-<ul class=observations>
-  {% for observation in observations %}
-  <li><h2>{{ observation.title }}</h2>
-    Date: {{ observation.timestamp }}<br>
-    Objects:
-    {% for object in observation.objects %}
-    <a href="{{ url_for('show_object', object_id = object.id) }}">{{ object.name }}</a>
-    {% endfor %}<br>
-    {{ observation.description }}
-  {% else %}
-    <li><em>No observations yet. Would you like to add one?</em>
-  {% endfor %}
-</ul>
+
+{{ render_observations(observations) }}
+
 {% endblock %}

@@ -1,29 +1,17 @@
 {% extends "layout.html" %}
 {% block body %}
+{% from "macros.html" import render_observations, link_to %}
 
 <div class=object>
 <h1>{{ theobject.name }}</h1>
 {% if session.logged_in %}
-<a href="{{ url_for('edit_object', object_id = theobject.id) }}">edit</a><br>
+{{ link_to('edit', 'edit_object', object_id = theobject.id) }}<br>
 {% endif %}
 
 {{ theobject.text|creole2html|safe }}
 
 </div>
 
-<ul class=observations>
-  {% for observation in observations %}
-  <li><h2>{{ observation.title }}</h2>
-    Date: {{ observation.timestamp }}<br>
-    Objects:
-    {% for object in observation.objects %}
-    <a href="{{ url_for('show_object', object_id = object.id) }}">{{ object.name }}</a>
-    {% endfor %}<br>
-    {{ observation.description }}
-  {% else %}
-    <li><em>No observations yet. Would you like to add one?</em>
-  {% endfor %}
-</ul>
-
+{{ render_observations(observations) }}
 
 {% endblock %}

@@ -4,7 +4,7 @@ from flask.ext.creole import Creole
 
 #############
 ### Set up app
-app = Flask(__name__, instance_relative_config=True) #look for things in the instance direcotry
+app = Flask('astronomr', instance_relative_config=True) #look for things in the instance direcotry
 app.config.from_object('astronomr.default_config')
 app.config.from_pyfile('astronomr.cfg', silent = True) #overrides
 

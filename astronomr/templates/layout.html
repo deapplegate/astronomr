@@ -1,13 +1,15 @@
+{% from "macros.html" import link_to %}
+
 <!doctype html>
 <title>Astronomr</title>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 <div class=page>
-  <a href="{{ url_for('show_observations') }}"><h1>Astronomr</h1></a>
+  {{ link_to('<h1>Astronomr</h1>', 'show_observations') }}
   <div class=metanav>
     {% if not session.logged_in %}
-    <a href="{{ url_for('login') }}">log in</a>
+    {{ link_to('log in', 'login') }}
     {% else %}
-    <a href="{{ url_for('logout') }}">log out</a>
+    {{ link_to('log out', 'logout') }}
     {% endif %}
   </div>
   {% for message in get_flashed_messages() %}
