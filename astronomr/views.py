@@ -56,23 +56,33 @@ def edit_object(object_id):
 
 ###
 
+def get_newest_obs(nobs):
 
-@app.route('/')
-def show_observations(new_obs_form = None):
-    observations = model.LoggedObservation.query.order_by(model.LoggedObservation.id.desc())[:10]
+    observations = model.LoggedObservation.query.order_by(model.LoggedObservation.id.desc())[:nobs]
 
-    if new_obs_form is None:
-        new_obs_form = forms.LoggedObservationForm()
-
-    return render_template('show_entries.html', observations = observations, 
-                           new_obs_form = new_obs_form)
+    return observations
 
 ###
 
-@app.route('/add', methods=['POST'])
-def add_observation():
+
+@app.route('/')
+@app.route('/add', methods=['GET', 'POST'])
+def show_observations():
+
+    new_obs_interface = do_add_observation()
+
+    newest_obs = get_newest_obs(10)
+
+    return render_template('show_entries.html', new_obs_interface = new_obs_interface, observations=newest_obs)
+
+
+
+###
+
+def do_add_observation():
+        
     if not session.get('logged_in'):
-        abort(401)
+        return ''
 
     new_obs_form = forms.LoggedObservationForm()
     if new_obs_form.validate_on_submit():
@@ -93,10 +103,10 @@ def add_observation():
         db.session.commit()
 
         flash('New entry was successfully posted')
-        return redirect(url_for('show_observations'))
-    
-    return show_observations(new_obs_form = new_obs_form)
 
+
+    return render_template('add_observation.html', new_obs_form = new_obs_form)
+    
 ###
         
 

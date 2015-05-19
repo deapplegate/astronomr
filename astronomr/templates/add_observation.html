@@ -1,0 +1,14 @@
+{% from "macros.html" import render_field_dl %}
+
+
+<form action="{{ url_for('show_observations') }}" method=post class=add-observation>
+  {{ new_obs_form.hidden_tag() }}
+  <dl>
+  {{ render_field_dl(new_obs_form.title, class="input text", size=40) }}
+  {{ render_field_dl(new_obs_form.timestamp, class="input text", placeholder="YYYY-MM-DD HH:MM:SS", size=40) }}
+  {{ render_field_dl(new_obs_form.objects, class="input text", placeholder="object1,object2,...", size=40) }}  
+  {{ render_field_dl(new_obs_form.description, class="input textarea", rows=4, cols=40) }} 
+  <input type=submit value="Add Observation">
+  </dl>
+</form>
+
