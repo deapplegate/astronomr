@@ -19,25 +19,27 @@
     {% endmacro %}
 
 
-{% macro render_field_dl(field) %}
-<div class="form_field">
-  <dt>{{ field.label(class="label") }}</dt>
-  <dd>
-  {% if field.errors %}
-  {% set css_class = 'has_error ' + kwargs.pop('class', '') %}
-  {{ field(class=css_class, **kwargs) }}
-  <ul class="errors">{% for error in field.errors %}<li>{{ error|e }}</li>{% endfor %}</ul>
-  {% else %}
-  <dd>{{ field(**kwargs) }}
-  {% endif %}
-  {{ field.description }}
-  </dd>
+{% macro render_field_bootstrap(field) %}
+{% if field.errors %}
+<div class="form-group has-error has-feedback">
+  <label class="control-label" for="{{ field.name }}">{{ field.label() }} ({{field.errors[0]|e}})</label>
+  {{ field(class="form-control", id="{{ field.name }}", **kwargs) }}
+  <span class="glyphicon glyphicon-remove form-control-feedback"></span>
 </div>
+{% else %}
+<div class="form-group">
+  <label for="{{ field.name }}">{{ field.label() }}:</label>
+  {{ field(class="form-control", id="{{ field.name }}", **kwargs) }}
+</div>
+{% endif %}
 {% endmacro %}
 
 
 
+
 {% macro render_observations(observations) %}
+<div class="recent_observations">
+<h2>Recent Observations</h2>
 <ul class=observations>
   {% for observation in observations %}
   <li><h2>{{ observation.title }}</h2>
@@ -51,6 +53,7 @@
     <li><em>No observations yet. Would you like to add one?</em>
   {% endfor %}
 </ul>
+</div>
 {% endmacro %}
 
 

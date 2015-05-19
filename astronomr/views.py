@@ -104,6 +104,8 @@ def do_add_observation():
 
         flash('New entry was successfully posted')
 
+        new_obs_form = forms.LoggedObservationForm(formdata = None)
+
 
     return render_template('add_observation.html', new_obs_form = new_obs_form)
     

@@ -1,7 +1,10 @@
+{% from "macros.html" import render_field_bootstrap %}
+
 {% extends "layout.html" %}
 {% block body %}
 
-<form action="{{ url_for('edit_object', object_id = theobject.id) }}" method=post class=edit-object>
+<h2>Edit {{ theobject.name }}</h2>
+<form role="form" action="{{ url_for('edit_object', object_id = theobject.id) }}" method=post class=edit-object>
   {{ edit_object_form.hidden_tag() }}
   
   <dl>
