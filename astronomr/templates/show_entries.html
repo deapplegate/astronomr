@@ -1,17 +1,17 @@
 {% extends "layout.html" %}
 {% block body %}
-{% from "macros.html" import render_field, render_observations %}
+{% from "macros.html" import render_field_dl, render_observations %}
 
 {% if session.logged_in %}
 <form action="{{ url_for('add_observation') }}" method=post class=add-observation>
-  <ul>
   {{ new_obs_form.hidden_tag() }}
-  <li>{{ render_field(new_obs_form.title, class="input text") }}</li>
-  <li>{{ render_field(new_obs_form.timestamp, class="input text") }}</li>
-  <li>{{ render_field(new_obs_form.objects, class="input text") }}  </li>
-  <li>{{ render_field(new_obs_form.description, class="input textarea") }} </li>
+  <dl>
+  {{ render_field_dl(new_obs_form.title, class="input text", size=40) }}
+  {{ render_field_dl(new_obs_form.timestamp, class="input text", placeholder="YYYY-MM-DD HH:MM:SS", size=40) }}
+  {{ render_field_dl(new_obs_form.objects, class="input text", placeholder="object1,object2,...", size=40) }}  
+  {{ render_field_dl(new_obs_form.description, class="input textarea", rows=4, cols=40) }} 
   <input type=submit value="Add Observation">
-  </ul>
+  </dl>
 </form>
 {% endif %}
 

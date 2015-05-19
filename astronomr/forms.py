@@ -8,10 +8,8 @@ from wtforms.validators import DataRequired
 class LoggedObservationForm(Form):
 
     title = StringField('Title', validators=[DataRequired()])
-    timestamp = DateTimeField('Date & TIme', validators=[DataRequired()],
-                              description = 'YYYY-MM-DD HH:MM:SS')
-    objects = StringField('Objects', validators=[DataRequired()], 
-                          description='enter a comma seperated list of objects')
+    timestamp = DateTimeField('Date & TIme', validators=[DataRequired()])
+    objects = StringField('Objects', validators=[DataRequired()])
     description = TextAreaField('Description')
 
 

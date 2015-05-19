@@ -19,6 +19,23 @@
     {% endmacro %}
 
 
+{% macro render_field_dl(field) %}
+<div class="form_field">
+  <dt>{{ field.label(class="label") }}</dt>
+  <dd>
+  {% if field.errors %}
+  {% set css_class = 'has_error ' + kwargs.pop('class', '') %}
+  {{ field(class=css_class, **kwargs) }}
+  <ul class="errors">{% for error in field.errors %}<li>{{ error|e }}</li>{% endfor %}</ul>
+  {% else %}
+  <dd>{{ field(**kwargs) }}
+  {% endif %}
+  {{ field.description }}
+  </dd>
+</div>
+{% endmacro %}
+
+
 
 {% macro render_observations(observations) %}
 <ul class=observations>
