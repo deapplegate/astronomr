@@ -1,6 +1,7 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.creole import Creole
+from flask.ext.login import LoginManager
 
 #############
 ### Set up app
@@ -10,6 +11,9 @@ app.config.from_pyfile('astronomr.cfg', silent = True) #overrides
 
 db = SQLAlchemy(app)
 creole = Creole(app)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 
 
